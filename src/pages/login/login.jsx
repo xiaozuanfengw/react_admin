@@ -18,10 +18,9 @@ export default class Login extends React.Component{
                 <header className="login-header">
                     <img src={Logo} alt="Logo"/>
                 <h1>React项目: 后台管理系统</h1>
-                 {/* haahah */}
                 </header>
                 <section className="login-content">
-                    <h2>用户登录</h2>
+                    <h2>用户zsdgarjgfjyhfhgvyhgvjy登录</h2>
                     <Form onSubmit={this.handleSubmit} className="login-form">
             <Form.Item>
               <Input
