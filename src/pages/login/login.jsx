@@ -20,7 +20,7 @@ export default class Login extends React.Component{
                 <h1>React项目: 后台管理系统</h1>
                 </header>
                 <section className="login-content">
-                    <h2>用户登录</h2>
+                    <h2>用户zzzzz登录</h2>
                     <Form onSubmit={this.handleSubmit} className="login-form">
             <Form.Item>
               <Input
