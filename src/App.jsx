@@ -6,6 +6,7 @@ import {BrowserRouter,Route,Switch} from 'react-router-dom'
 export default class App extends React.Component{
   render(){
     return (
+     
      <BrowserRouter>
        <Switch>
        <Route path="/login" component={Login}></Route>
