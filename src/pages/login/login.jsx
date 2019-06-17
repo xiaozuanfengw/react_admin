@@ -4,21 +4,35 @@ import {
     Icon, 
     Input,
     Button, 
+    message
   } from 'antd'
-import Logo from './images/logo.png'
+import Logo from '../../assets/images/logo.png'
+import {Redirect} from 'react-router-dom'
+import {reqLogin} from '../../api'
 import './login.less'
+import memoryUtils from '../../utils/memoryUtils'
+
+import {saveUser} from '../../utils/storageUtils.js'
 
 
 
  class Login extends React.Component{
   handleSubmit = (event) => {
     event.preventDefault()
-    this.props.form.validateFields((err, values)=>{
-        if(!err){
-          console.log(values)
+    this.props.form.validateFields(async (err, values)=>{
+      if(!err){
+        const {userName, password} = values
+        const  result= await reqLogin(userName,password)
+        if(result.status === 0){
+          const user = result.data
+          saveUser(user)
+          memoryUtils.user = user
+          this.props.history.replace('/')
+        }else {
+          message.error(result.msg)
         }
-    })
-   
+      }
+    })  
   } 
   
   // validator = (relu, value='', callback) => {
@@ -36,6 +50,12 @@ import './login.less'
   //   }
   // }
     render () {
+      if(memoryUtils.user._id){
+        return <Redirect to="/"/>
+      }
+
+
+
       let {getFieldDecorator} = this.props.form
         return (
             <div className="login">
@@ -79,8 +99,7 @@ import './login.less'
                     }
                   }
                 ]
-              })
-                (
+              })(
                   <Input
                     prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                     type="password"
@@ -88,8 +107,6 @@ import './login.less'
                   />
                 )
             }
-           
-             
             </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit" className="login-form-button">
